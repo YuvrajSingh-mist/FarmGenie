@@ -1,7 +1,10 @@
 # FarmGenie 
 
 --- 
-- **Our project only supports conversation (input/output) in Hindi/English for now**. 
+- **Our project only supports conversation (input/output) in Hindi/English for now**.
+- FarmGenie Official Website: http://64.227.135.219:3000/
+- FarmGenie Community Forum: https://farmgenie-rho.vercel.app/
+- FarmGenie Agri-Schemes Website: https://farmgenie-agrischemes.vercel.app/
 - Please refer to 'MoE-Framework.png' for our proposed framework
 ---
 
@@ -27,30 +30,62 @@ The primary goal of this project is to design a product that helps farmers, espe
 
 
 #### Seamless Interface
-- The product is built as a web application using a Turborepo, a Next.js client, and a Next.js backend, leveraging a Redis queue and multiple worker nodes to ensure scalability and robustness. The knowledge base is curated from openly available PDF books and reports, covering a wide range of agricultural topics. 
+
+##### FarmGenie Official Website 
+
+- http://64.227.135.219:3000/
+
+- The product is built as a web application using a Next.js client, and a Next.js backend, leveraging a Redis queue and multiple worker nodes to ensure scalability and robustness. The knowledge base is curated from openly available PDF books and reports, covering a wide range of agricultural topics. 
+- Dual Marketplace:
+  - Input Marketplace (for local sellers and dealers)
+  - Output Marketplace (for farmers)
+- AI-powered Knowledge Base
+
+
+##### FarmGenie Community-Forum
+
+- https://farmgenie-rho.vercel.app/
 
 - Additionally, the product aims to create an interactive platform where farmers can connect with each other, share their knowledge, and learn from their peers, fostering a community-driven approach to agricultural knowledge dissemination.
+
+###### Features
+  - Multilingual Support.
+  - Gamified help system.
+  - Communities.
+
+
+##### FarmGenie AgriculturalSchemes Website
+
+- https://farmgenie-agrischemes.vercel.app/
+
+###### Features
+  - Empowering Farmers: A dedicated platform designed to provide farmers with essential information on government schemes for agriculture and farming.
+  - User-Friendly Interface: Intuitive navigation allows for easy access to a wealth of resources, ensuring a seamless experience for users.
+  - Comprehensive Database: Explore a wide variety of initiatives, including subsidies, grants, and training programs tailored to support farmers.
+  - Regular Updates: Stay informed with the latest changes and updates to government policies and schemes relevant to agriculture.
+  - Helpful Guides: Access informative guides and tips to help farmers maximize the benefits of available programs and resources.
+
+
+
 ## Features 
 
 **Website**
-
-
 
 - The website is built using a Turborepo, which is a high-performance build system that helps manage the complexity of a mono repo. 
 - The front end is built using Next.js, a React framework that provides server-side rendering, static site generation, and other performance optimizations. The backend is also built using Next.js that handles the communication between the front end and the ML backend. 
 
 The Next.js backend is responsible for the following tasks:
 
-1.	**Request Handling**: The Express server receives all the requests from the frontend, such as user queries, and passes them to the Redis queue.
+1.	**Request Handling**: The Next.js server receives all the requests from the frontend, such as user queries, and passes them to the Redis queue.
 2.	**Redis Queue**: A Redis queue is used to manage incoming requests. This helps distribute the load across multiple worker node processes, ensuring the ML backend does not get overwhelmed.
 3.	**Worker node Processes**: Multiple worker nodes are set up to consume the requests from the Redis queue. These processes then pass the requests to the ML backend for processing.
 4.	**ML Backend Integration**: The Next.js backend communicate with the ML backend, which is responsible for handling the various ML tasks, such as query classification, subproblem generation, and retrieval-augmented generation (RAG).
 5.	**Database Integration**: The website uses a single PostgreSQL database, provided by Neon DB, as the single source of truth. This database stores all the user, farmer, and retailer data, as well as the content for the official farmgenie website.
-6.	**User Management**: The Next.js frontend handles user management, including authentication, authorization, and user data storage in the PostgreSQL database (neon tech).
+6.	**User Management**: The Next.js backend handles user management, including authentication, authorization, and user data storage in the PostgreSQL database (neon tech).
 7.	**Scalability**: The use of a Redis queue and multiple worker node processes ensures the application can scale to handle a large number of concurrent user requests without overloading the ML backend.
 8.	**Deployment**: The entire application, including the frontend, backend, and ML components, is packaged and deployed using Docker containers, ensuring consistent and reliable deployment across different environments.
-9.	Monitoring and Logging: The application includes comprehensive monitoring and logging solutions to track performance, errors, and user activity, enabling the team to identify and resolve issues quickly.
-10.	Security: The website incorporates industry-standard security practices, such as SSL/TLS encryption, user authentication, and input validation, to protect user data and prevent unauthorized access.
+9.	**Monitoring and Logging**: The application includes comprehensive monitoring and logging solutions to track performance, errors, and user activity, enabling the team to identify and resolve issues quickly.
+10.	**Security**: The website incorporates industry-standard security practices, such as SSL/TLS encryption, user authentication, and input validation, to protect user data and prevent unauthorized access.
 
 
 
@@ -61,9 +96,9 @@ The Next.js backend is responsible for the following tasks:
 **Backend**: Flask, Python, Langchain, GeminiPro API,
 peft , bitsandbytes, transformers
 
-**Storage/VectoStore**: PostgreSQL, FAISS
+**Storage/VectoStore**: PostgreSQL, FAISS, Pinecone, MySQL
 
-**Other Tools**: Unsloth, GCP, Docker, Vercel
+**Other Tools**: Unsloth, GCP, Docker, Vercel, DigitalOcean
 
 
 ## Fine Tuning
@@ -112,7 +147,25 @@ Run the server image
   docker run --env-file .env -p 8000:8000 --name pytorch-container -it --gpus all yuvrajsingh9886/farmgenie-fastapi:v2.1
 ```
 You'll see it running on 127.0.0.0/docs url
+
 ## Run Locally
+
+Using Docker
+
+To run the FarmGenie official website Docker image locally, start by pulling the image from Docker Hub using the command:
+
+```bash
+  docker pull swayam14/farmwebapp2:v1.0
+```
+
+
+This command downloads the specified image to your local machine, allowing you to run it without needing to build it from scratch. Once the image is successfully pulled, you can start the container using the following command, which maps port 3000 on your local machine to port 3001 in the container:
+
+```bash
+  docker run -p 3000:3001 swayam14/farmwebapp2
+```
+This setup enables you to access the FarmWebApp2 application locally via http://localhost:3000, allowing for easy testing and development of the application as if it were running on a remote server.
+
 
 Clone the project
 
