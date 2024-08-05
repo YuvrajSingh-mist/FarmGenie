@@ -1,25 +1,6 @@
 version: '3.8'
 
 services:
-  # db:
-  #   # build:
-  #     # context: ./mysql
-  #     # dockerfile: Dockerfile
-  #   image: mysql:8.0
-  #   container_name: mysql-container
-  #   restart: always
-  #   # hostname: mysql
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: mist786%
-  #     MYSQL_DATABASE: amazon_agricultural_products
-  #     # MYSQL_USER: root
-  #     MYSQL_PASSWORD: mist786%
-    
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - db:/var/lib/mysql
-  #     - ./db/dump.sql:/docker-entrypoint-initdb.d/init.sql
 
    
 
@@ -27,16 +8,16 @@ services:
     build:
       context: ./mysql
       dockerfile: Dockerfile
-    # image: mysql:8.1
+
     container_name: mysql-container
     restart: always
-    # hostname: db
+
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      # MYSQL_USER: root
+
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      # MYSQL_TCP_PORT: 33061
+
     
     ports:
       - "33061:3306"
@@ -54,12 +35,10 @@ services:
       - "8000:8000"
     depends_on:
       - mysql
-    # links:
-    #   - mysql
+
     environment:
 
       GEMINI_API_KEY:  ${GEMINI_API_KEY}
-      # OPENAI_API_KEY=sk-proj-9mWVYCLMJ0lWVL5okHBAT3BlbkFJHEqja1cC5yzABFB4EaSE
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       hf_token: ${hf_token}
       NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
@@ -68,7 +47,7 @@ services:
       MYSQL_PASS: ${MYSQL_PASS}
       PINECONE_API_KEY: ${PINECONE_API_KEY}
       GOOGLE_MAPS_API: ${GOOGLE_MAPS_API}
-    # runtime: nvidia
+  
     deploy:
       resources:
         reservations:
@@ -77,29 +56,12 @@ services:
               count: 1
               capabilities: [gpu]
 
-    # command: sh -c "dockerize -wait tcp://db:33061 -timeout 300s -wait-retry-interval 30s /sayhello"
+  
     volumes:
       - ./api:/code
 
 
 
-  # hf_spaces_app:
-  #   build:
-  #     context: ./hf_spaces_app
-  #     dockerfile: Dockerfile
-  #   container_name: hf_spaces_app-container
-  #   ports:
-  #     - "7860:7860"
-  #   depends_on:
-  #     - mysql
-  #     - api
-
-    # volumes:
-    #   - ./api:/code
-
-
-# volumes:
-#   db:
 #     driver: local
 
 volumes:
