@@ -152,7 +152,7 @@ You'll see it running on localhost:8000/docs
 Pull the server image from DockerHub
 
 ```bash
-  docker pull yuvrajsingh9886/farmgenie_hf-api
+  docker pull yuvrajsingh9886/farmgenie_hf-api:v1.0
 ```
 
 Run the server image
